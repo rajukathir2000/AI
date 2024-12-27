@@ -1,0 +1,18 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EveTrigger : MonoBehaviour
+{
+    public float detectionRadius = 10f; // Set this to your desired detection range
+    public Color gizmoColor = Color.red; // Color for the Gizmo sphere
+
+    void OnDrawGizmosSelected()
+    {
+        // Set the Gizmo color
+        Gizmos.color = gizmoColor;
+
+        // Draw a wireframe sphere to represent the detection radius
+        Gizmos.DrawWireSphere(transform.position, detectionRadius);
+    }
+}
