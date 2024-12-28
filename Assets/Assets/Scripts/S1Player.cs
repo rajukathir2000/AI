@@ -7,6 +7,7 @@ public class S1Player : MonoBehaviour
 {
     public Image blackPanel;
     public float fadeDuration = 3f;
+    private SceneTransitionHandler handle;
 
     private void Start()
     {
@@ -26,6 +27,8 @@ public class S1Player : MonoBehaviour
         if (other.CompareTag("Car"))
         {
             InsideCar();
+            handle.TransitionToScene2();
+            Debug.Log("Called prefs");
         }
     }
 

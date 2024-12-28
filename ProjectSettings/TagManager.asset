@@ -8,6 +8,8 @@ TagManager:
   - SenderTMP
   - Car
   - Scene
+  - Sphere
+  - Home
   layers:
   - Default
   - TransparentFX

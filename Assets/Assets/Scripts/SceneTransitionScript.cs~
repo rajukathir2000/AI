@@ -1,0 +1,57 @@
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class SceneTransitionHandler : MonoBehaviour
+{
+    public GameObject objectToEnable;   // GameObject to enable when returning to Scene 1
+    public GameObject objectToDisable; // GameObject to disable when returning to Scene 1
+    private string transitionKey = "ComingBack"; // Key for PlayerPrefs to track state
+
+    private void Start()
+    {
+        // Check if coming back to Scene 1 from Scene 2
+        if (SceneManager.GetActiveScene().buildIndex == 1) // Assuming Scene 1 is at index 1
+        {
+            if (PlayerPrefs.GetInt(transitionKey, 0) == 1) // 1 means coming back from Scene 2
+            {
+                HandleReturnTransition();
+            }
+            else
+            {
+                ResetObjectsForFirstEntry();
+            }
+        }
+    }
+
+    public void TransitionToNextScene()
+    {
+        // Set PlayerPrefs to indicate transition to Scene 2
+        PlayerPrefs.SetInt(transitionKey, 1);
+        PlayerPrefs.Save();
+
+        // Load the next scene (Scene 2)
+        SceneManager.LoadScene(2); // Assuming Scene 2 is at index 2
+    }
+
+    private void HandleReturnTransition()
+    {
+        if (objectToEnable != null)
+            objectToEnable.SetActive(true);
+
+        if (objectToDisable != null)
+            objectToDisable.SetActive(false);
+
+        // Reset the PlayerPrefs key for future transitions
+        PlayerPrefs.SetInt(transitionKey, 0);
+        PlayerPrefs.Save();
+    }
+
+    private void ResetObjectsForFirstEntry()
+    {
+        if (objectToEnable != null)
+            objectToEnable.SetActive(false);
+
+        if (objectToDisable != null)
+            objectToDisable.SetActive(true);
+    }
+}
